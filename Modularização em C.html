@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Prog. para Software Básico">
+  <title>Modularização em C</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="./Modularização em C_files/htmlpage.css">
+    <script type="text/x-mathjax-config;executed=true">
+      MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85, },
+      tex2jax: {
+  	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        }
+      });
+    </script>
+    <script type="text/javascript" src="./Modularização em C_files/MathJax.js.download"></script>
+    
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuTitle {background-color: #CCCCCC; margin: -1px -1px 1px -1px; text-align: center; font-style: italic; font-size: 80%; color: #444444; padding: 2px 0; overflow: hidden}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<header>
+<h1 class="title">Modularização em C</h1>
+<h2 class="author">Prog. C</h2>
+<h3 class="date">Prof. Marcelo Cohen - 03/2019</h3>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#modulariza%C3%A7%C3%A3o-em-c">Modularização em C</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#motiva%C3%A7%C3%A3o-por-que-modularizar">Motivação: Por que modularizar ?</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#solu%C3%A7%C3%A3o-modulariza%C3%A7%C3%A3o">Solução: Modularização</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#cria%C3%A7%C3%A3o-do-header-da-biblioteca-de-fun%C3%A7%C3%B5es-1">Criação do <em>header</em> da biblioteca de funções (1)</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#cria%C3%A7%C3%A3o-do-header-da-biblioteca-de-fun%C3%A7%C3%B5es-2">Criação do <em>header</em> da biblioteca de funções (2)</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#implementa%C3%A7%C3%A3o-das-fun%C3%A7%C3%B5es">Implementação das funções</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#programa-principal">Programa principal</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#compila%C3%A7%C3%A3o-dos-m%C3%B3dulos">Compilação dos módulos</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#compila%C3%A7%C3%A3o-modular">Compilação modular</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#compila%C3%A7%C3%A3o-modular-makefiles">Compilação modular: <em>Makefiles</em></a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#melhorando-o-makefile">Melhorando o <em>Makefile</em></a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#gerando-depend%C3%AAncias-automaticamente">Gerando dependências automaticamente</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#gerando-depend%C3%AAncias-automaticamente-2">Gerando dependências automaticamente (2)</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#alternativas-ao-make">Alternativas ao <em>make</em></a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="modularização-em-c"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#modulariza%C3%A7%C3%A3o-em-c">Modularização em C</a></h1>
+<p><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html">Versão para impressão</a></p>
+<hr>
+<h2 id="motivação-por-que-modularizar"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#motiva%C3%A7%C3%A3o-por-que-modularizar">Motivação: Por que modularizar ?</a></h2>
+<ul>
+<li>O que acontece se o programa é composto por muitas funções ?
+<ul>
+<li>Todas ficam dentro do mesmo código-fonte</li>
+<li>Código pode se tornar muito extenso e difícil de gerenciar</li>
+</ul></li>
+<li>Isso também cria dois outros problemas:
+<ul>
+<li>Dificulta a reutilização das funções em outros programas</li>
+<li>Dificulta o trabalho em equipe</li>
+</ul></li>
+<li>Então, qual é a solução ?</li>
+</ul>
+<hr>
+<h2 id="solução-modularização"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#solu%C3%A7%C3%A3o-modulariza%C3%A7%C3%A3o">Solução: Modularização</a></h2>
+<ul>
+<li><p>Agrupam-se as funções relacionadas em módulos. Para cada módulo são utilizados dois arquivos:</p></li>
+<li>Declarações (arquivos <strong>.h</strong>)
+<ul>
+<li>Contém apenas as declarações das funções (protótipos) e das constantes</li>
+</ul></li>
+<li>Implementação (arquivos <strong>.c</strong>)
+<ul>
+<li>Contém a implementação das funções declaradas no arquivo <em>.h</em> correspondente</li>
+<li>Inclui o arquivo <em>.h</em> correspondente</li>
+</ul></li>
+<li><p>Para usar uma função em outro módulo, basta então incluir o arquivo <em>.h</em> correspondente</p></li>
+</ul>
+<hr>
+<h2 id="criação-do-header-da-biblioteca-de-funções-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#cria%C3%A7%C3%A3o-do-header-da-biblioteca-de-fun%C3%A7%C3%B5es-1">Criação do <em>header</em> da biblioteca de funções (1)</a></h2>
+<ul>
+<li><p>Para exemplificar, criaremos uma biblioteca simples de funções matemáticas</p></li>
+<li><p>Primeiro, escrevemos os protótipos das funções no arquivo <strong>bibfunc.h</strong>:</p>
+<pre><code>float fatorial(int v);
+float somatorio(int v);
+...</code></pre></li>
+</ul>
+<hr>
+<h2 id="criação-do-header-da-biblioteca-de-funções-2"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#cria%C3%A7%C3%A3o-do-header-da-biblioteca-de-fun%C3%A7%C3%B5es-2">Criação do <em>header</em> da biblioteca de funções (2)</a></h2>
+<ul>
+<li><p>Porém, se por engano esse arquivo for incluído mais de uma vez, haverá uma duplicidade de todas as definições</p></li>
+<li><p>Como isso pode acontecer facilmente, acrescentamos 3 linhas no arquivo <em>.h</em>:</p>
+<pre><code>#ifndef BIBFUNC_H
+#define BIBFUNC_H
+
+float fatorial(int v);
+float somatorio(int v);
+...
+#endif</code></pre></li>
+<li>Essas linhas contêm comandos do pré-processador, que definem um símbolo <code>BIBFUNC_H</code> caso este ainda não exista</li>
+<li><p>Se existir, é porque o arquivo já foi incluído e portanto, o pré-processador pula o código até o <em>#endif</em></p></li>
+</ul>
+<hr>
+<h2 id="implementação-das-funções"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#implementa%C3%A7%C3%A3o-das-fun%C3%A7%C3%B5es">Implementação das funções</a></h2>
+<ul>
+<li><p>A seguir, escrevemos o arquivo <strong>bibfunc.c</strong>, que contém a implementação das funções definidas anteriormente</p>
+<pre><code>#include "bibfunc.h"
+
+float fatorial(int v) {
+    int res = 1, i;
+    for(i=1; i&lt;=v; i++) res = res * i;
+    return res;
+}
+
+float somatorio(int v) {
+    float soma = 0, i;
+    for(i=1; i&lt;=v; i++) soma += i;
+    return soma;
+}</code></pre></li>
+<li><p>Note que este arquivo <strong>deve incluir</strong> o arquivo <em>bibfunc.h</em></p></li>
+</ul>
+<hr>
+<h2 id="programa-principal"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#programa-principal">Programa principal</a></h2>
+<ul>
+<li><p>Finalmente, o programa principal deve ser implementado em um arquivo separado, como por exemplo <strong>main.c</strong>:</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include "bibfunc.h"
+
+int main()
+{
+    int v;
+    printf("Digite um valor: ");
+    scanf("%d", &amp;v);
+    printf("Fatorial: %f\n", fatorial(v));
+    printf("Somatório: %f\n", somatorio(v));
+    ...
+}</code></pre></li>
+<li><p>Observe que o arquivo <em>bibfunc.h</em> também deve ser incluído, pois contém a definição das funções</p></li>
+</ul>
+<hr>
+<h2 id="compilação-dos-módulos"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#compila%C3%A7%C3%A3o-dos-m%C3%B3dulos">Compilação dos módulos</a></h2>
+<figure>
+<img src="./Modularização em C_files/comp_full.webp" alt="{@class=float-right}comp_full"><figcaption>{@class=float-right}comp_full</figcaption>
+</figure>
+<ul>
+<li><p>Para compilar o programa completo, é preciso indicar todos os fontes na linha de comando:</p>
+<p><code>gcc -o main main.c bibfunc.c</code></p></li>
+<li><p>Porém, essa estratégia tem algumas implicacões:</p>
+<ul>
+<li>Todos os módulos são SEMPRE compilados novamente</li>
+<li>Mas e se apenas mudar a implementação das funções?</li>
+<li>E se apenas o programa principal mudar?</li>
+</ul></li>
+<li><p>Para um programa tão pequeno, isso não faz tanta diferença...</p></li>
+<li><p>Mas se o programa for composto por muitos módulos, compilá-los separadamente pode ter um custo considerável, além de não ser muito prático</p></li>
+</ul>
+<hr>
+<h2 id="compilação-modular"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#compila%C3%A7%C3%A3o-modular">Compilação modular</a></h2>
+<figure>
+<img src="./Modularização em C_files/comp_modular.webp" alt="{@class=float-right}comp_modular"><figcaption>{@class=float-right}comp_modular</figcaption>
+</figure>
+<ul>
+<li><p>Uma solução é compilar individualmente cada módulo:</p>
+<pre><code>gcc -c bibfunc.c
+gcc -c main.c</code></pre></li>
+<li><p>O comando <code>gcc -c...</code> apenas <strong>compila</strong> um módulo, gerando o <strong>código objeto</strong> (arquivo .o)</p></li>
+<li><p>Finalmente, geramos o <strong>programa executável</strong>, ligando os módulos e as bibliotecas do sistema:</p>
+<pre><code>gcc -o main main.o bibfunc.o</code></pre></li>
+<li><p>Mas como decidir <strong>quais</strong> módulos precisam ser compilados?</p></li>
+</ul>
+<hr>
+<h2 id="compilação-modular-makefiles"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#compila%C3%A7%C3%A3o-modular-makefiles">Compilação modular: <em>Makefiles</em></a></h2>
+<ul>
+<li><p>Um <em>Makefile</em> é um <strong>roteiro de compilação</strong>:</p>
+<ul>
+<li>Informa as dependências entre os arquivos</li>
+<li>Indica os comandos necessários para a compilação</li>
+</ul></li>
+<li><p>Para utilizá-lo, basta digitar o comando <em>make</em> no terminal</p>
+<pre><code>all: main
+
+main: main.o bibfunc.o
+    gcc -o main main.o bibfunc.o
+
+main.o: main.c
+    gcc -c main.c
+
+bibfunc.o: bibfunc.c
+    gcc -c bibfunc.c</code></pre></li>
+<li><p>O comando <code>gcc -c ...</code> apenas compila o módulo especificado, produzindo um arquivo <strong>.o</strong>, que é o chamado código-objeto (sem ligação com bibliotecas)</p></li>
+</ul>
+<hr>
+<h2 id="melhorando-o-makefile"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#melhorando-o-makefile">Melhorando o <em>Makefile</em></a></h2>
+<ul>
+<li><p>Os comandos de compilação não parecem meio repetitivos? Podemos melhorar o <em>Makefile</em>, criando <strong>regras genéricas</strong>:</p>
+<pre><code>CFLAGS = -Wall -g    # Opções do compilador: todos warnings e debug info
+
+PROG = main
+FONTES = main.c bibfunc.c
+OBJETOS = $(FONTES:.c=.o)
+
+$(PROG): $(OBJETOS)
+    gcc $(CFLAGS) $(OBJETOS) -o $@
+
+clean:
+    -@ rm -f $(OBJETOS) $(PROG)</code></pre>
+<ul>
+<li><code>PROG = ...</code> define o nome do programa executável</li>
+<li><code>FONTES = ...</code> define todos os módulos</li>
+<li><code>OBJETOS = ...</code> define como transformar um .cpp em um .o</li>
+<li><code>clean</code> permite apagar os arquivos <em>.o</em> e executável gerados (<code>make clean</code>)</li>
+</ul></li>
+</ul>
+<hr>
+<h2 id="gerando-dependências-automaticamente"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#gerando-depend%C3%AAncias-automaticamente">Gerando dependências automaticamente</a></h2>
+<ul>
+<li><p>Se estiver disponível, o comando <code>makedepend</code> pode ser usado para gerar automaticamente todas as dependências dos módulos:</p>
+<pre><code>...
+clean:
+    -@ rm -f $(OBJETOS)
+
+depend:
+    makedepend -- ${CFLAGS} -- ${FONTES}</code></pre></li>
+</ul>
+<hr>
+<h2 id="gerando-dependências-automaticamente-2"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#gerando-depend%C3%AAncias-automaticamente-2">Gerando dependências automaticamente (2)</a></h2>
+<ul>
+<li><p>Ao digitarmos <code>make depend</code>, o comando <code>makedepend</code> será ativado, e verificará as dependências de cada módulo, incluindo estas no final do próprio <em>Makefile</em>:</p>
+<pre><code>...
+depend:
+    makedepend -- ${CFLAGS} -- ${FONTES}
+
+# DO NOT DELETE
+
+main.o: bibfunc.h
+bibfunc.o: bibfunc.h</code></pre></li>
+</ul>
+<hr>
+<h2 id="alternativas-ao-make"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/makefiles/handout.html#alternativas-ao-make">Alternativas ao <em>make</em></a></h2>
+<ul>
+<li><p>Já existem alguns sistemas alternativos ao <em>make</em>:</p>
+<ul>
+<li><p><a href="http://www_scons.org/">Scons</a> - escrito em Python, oferece uma sintaxe mais flexível, é multiplataforma e tem diversos recursos interessantes</p></li>
+<li><p><a href="http://cmake.org/">CMake (Cross-Platform Make)</a> - este sistema tem o objetivo de gerar <em>Makefiles</em> adaptados para a plataforma de compilação</p></li>
+<li><p><a href="http://qt-project.org/doc/qt-4.8/qmake-manual.html">QMake</a> - outro sistema semelhante, normalmente distribuído com o toolkit <em>Qt</em>, também multiplataforma</p></li>
+<li><p><a href="http://www.boost.org/boost-build2/">Boost.Build</a> - específico para C++, também multiplataforma e com uma sintaxe simples</p></li>
+<li><p><a href="https://en.wikipedia.org/wiki/GNU_build_system">GNU Build System (autotools)</a> - sistema mais utilizado atualmente para instalação de software no <em>Linux/Unix</em> (Com software adicional instalado, pode ser utilizado também no <em>Windows</em>)</p></li>
+</ul></li>
+<li><p>Obs: projetos criados em IDEs como <em>Visual Studio</em>, <em>Code::Blocks</em>, <em>Qt Creator</em>, <em>XCode</em>, <em>NetBeans</em>, etc... simplesmente automatizam essa tarefa</p></li>
+</ul>
+<script defer="" src="./Modularização em C_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8e43dfd54a8ae9b2&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2024.10.5&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+
+</body></html>

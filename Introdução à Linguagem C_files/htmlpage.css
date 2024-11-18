@@ -1,0 +1,137 @@
+/*
+Design by Free CSS Templates
+http://www.freecsstemplates.org
+Released for free under a Creative Commons Attribution 2.5 License
+
+Adapted by Marcelo Cohen to generate HTML page from slides
+*/
+
+body {
+    background: #FFFFFF;
+    font: 16px Verdana, Helvetica, sans-serif;
+    color: #323232;
+    margin-left: 3em;
+    margin-right: 3em;
+}
+
+h1, h1 a, h2, h2 a, h3, h3 a {
+    text-decoration: none;
+    font-family: Verdana, Helvetica, sans-serif;
+    color: #444444;
+}
+
+h1 {
+    font-size: 2.6em;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+p, ol, ul {
+    margin-bottom: 1em;
+    line-height: 110%;
+}
+
+li {
+    line-height: 140%;
+}
+
+blockquote {
+    margin: 0 0 0 1.5em;
+    padding-left: 1em;
+    border-left: 5px solid #DDDDDD;
+}
+
+table {
+    padding: 10px;
+    border-spacing: 8px;
+}
+
+a {
+    color: #0014EB;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+h1.title {
+    text-align: center;
+}
+
+h2.author {
+    text-align: center;
+}
+
+h3.date {
+    text-align: center;
+}
+
+h3 > a > span.header-section-number {
+    display: none;
+}
+
+ul > li > ul > li > a > span.toc-section-number {
+    display: none;
+}
+
+figcaption {
+    display: none;
+}
+
+/* Header */
+
+#header {
+    height: 85px;
+}
+
+#logo h1, #logo p {
+    float: left;
+}
+
+#logo h1 {
+    padding: 13px 0 0 25px;
+    font-weight: normal;
+}
+
+#logo p {
+    margin: 0;
+    padding: 60px 0 0 20px;
+    line-height: normal;
+/*    text-transform: lowercase;*/
+    font-weight: bold;
+}
+
+#logo a {
+    text-decoration: none;
+    color: #FFFFFF;
+    color: #00346B;
+}
+
+/* Page */
+
+#page {
+    padding: 80px 60px 0 60px;
+}
+
+/* Content */
+
+#content {
+    margin-right: 340px;
+}
+
+#content-wide {
+    margin-right: 140px;
+}
+
+iframe {
+  min-width: 90%;
+  min-height: 430px;
+  max-height: 430px;
+}
+

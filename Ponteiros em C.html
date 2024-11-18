@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<!-- saved from url=(0082)https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Dr. Marcelo Cohen">
+  <title>Ponteiros em C</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="./Ponteiros em C_files/htmlpage.css">
+    <script type="text/x-mathjax-config;executed=true">
+      MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85, },
+      tex2jax: {
+  	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        }
+      });
+    </script>
+    <script type="text/javascript" src="./Ponteiros em C_files/MathJax.js.download"></script>
+    
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuTitle {background-color: #CCCCCC; margin: -1px -1px 1px -1px; text-align: center; font-style: italic; font-size: 80%; color: #444444; padding: 2px 0; overflow: hidden}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<header>
+<h1 class="title">Ponteiros em C</h1>
+<h2 class="author">Dr. Marcelo Cohen</h2>
+<h3 class="date">09/2014</h3>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-em-c">Ponteiros em C</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros">Ponteiros</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#introdu%C3%A7%C3%A3o">Introdução</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiro">Ponteiro</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#entendendo-os-operadores-de-ponteiro">Entendendo os operadores de ponteiro</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-podem-ser-maus">Ponteiros podem ser maus!</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#o-ponteiro-null">O ponteiro NULL</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-e-arrays">Ponteiros e <em>arrays</em></a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-e-arrays-1">Ponteiros e <em>arrays</em></a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#arrays-s%C3%A3o-sempre-passados-por-refer%C3%AAncia"><em>Arrays</em> são sempre passados por referência</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros">Aritmética de ponteiros</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros-2">Aritmética de ponteiros (2)</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros-%C3%A9-inteligente">Aritmética de ponteiros é inteligente!</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#experimento-aritm%C3%A9tica-de-ponteiros">Experimento: aritmética de ponteiros</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros-na-pr%C3%A1tica">Aritmética de ponteiros na prática</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#arrays-de-ponteiros"><em>Arrays</em> de ponteiros</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#outro-uso-argumentos-para-o-programa">Outro uso: argumentos para o programa</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#exerc%C3%ADcios">Exercícios</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#exerc%C3%ADcios-1">Exercícios</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#exerc%C3%ADcios-2">Exercícios (2)</a></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="ponteiros-em-c"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-em-c">Ponteiros em C</a></h1>
+<p><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html">Versão para impressão</a></p>
+<hr>
+<h2 id="ponteiros"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros">Ponteiros</a></h2>
+<p>Piada obrigatória do XKCD:</p>
+<figure>
+<img src="./Ponteiros em C_files/xkcd_pointers.webp" alt="{@class=center}xkcd"><figcaption>{@class=center}xkcd</figcaption>
+</figure>
+<p><a href="http://xkcd.com/138/">http://xkcd.com/138/</a></p>
+<hr>
+<h2 id="introdução"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#introdu%C3%A7%C3%A3o">Introdução</a></h2>
+<ul>
+<li><p>Cada variável em um programa C é armazenada em algum lugar na memória</p></li>
+<li><p>A linguagem possui um operador para obter esses endereços: o operador <strong>&amp;</strong></p></li>
+<li><p>Por exemplo, vamos exibir o endereço de uma variável:</p>
+<pre><code>int main()
+{
+    int b = 200;
+    printf("%p\n", &amp;b);
+}</code></pre></li>
+<li>O operador <strong>&amp;</strong> retorna o endereço do seu operando</li>
+<li><p>O modificador <strong>%p</strong> exibe o valor como um end. de memória em hexa</p></li>
+</ul>
+<hr>
+<h2 id="ponteiro"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiro">Ponteiro</a></h2>
+<figure>
+<img src="./Ponteiros em C_files/File_Pointers.svg" alt="{@class=float-right}memory"><figcaption>{@class=float-right}memory</figcaption>
+</figure>
+<ul>
+<li><p>Definição: uma variável que armazena um <strong>endereço de memória</strong> (usualmente de outra variável)</p></li>
+<li><p>Por exemplo: criando um ponteiro para a variável <em>b</em> (chamado <em>a</em>):</p>
+<pre><code>int main()
+{
+    int b = 200;
+    int* a = &amp;b;
+}</code></pre></li>
+<li><p>O operador <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7u40-b43/org/omg/stub/java/rmi/"></a>*<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7u40-b43/org/omg/stub/java/rmi/"></a> declara que <em>a</em> é um <strong>ponteiro para um int</strong></p></li>
+</ul>
+<hr>
+<h2 id="entendendo-os-operadores-de-ponteiro"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#entendendo-os-operadores-de-ponteiro">Entendendo os operadores de ponteiro</a></h2>
+<ul>
+<li>O operador <strong>&amp;</strong> retorna o endereço de algo</li>
+<li><p>O operador <b>*</b> é usado para <strong>declarar um ponteiro</strong> ou <strong>acessar</strong> os conteúdos de um endereço de memória:</p>
+<pre><code>int main()
+{
+    int b = 200;
+    int* a = &amp;b; // a armazenará o endereço de b
+
+    printf("Valor de b: %d\n", b);
+    printf("Valor de a: %p\n", a);
+    printf("Conteúdo apontado por a: %d", *a);
+}</code></pre></li>
+<li><p>Quando usado <strong>à esquerda</strong> de uma variável, o operador <a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7u40-b43/org/omg/stub/java/rmi/"></a>*<a href="http://grepcode.com/file/repository.grepcode.com/java/root/jdk/openjdk/7u40-b43/org/omg/stub/java/rmi/"></a> é chamado de <strong>operador de dereferência</strong></p></li>
+</ul>
+<hr>
+<h2 id="ponteiros-podem-ser-maus"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-podem-ser-maus">Ponteiros podem ser maus!</a></h2>
+<ul>
+<li><p>Precisamos ter certeza de sempre usar <strong>ponteiros válidos</strong></p></li>
+<li><p>Um ponteiro válido é um ponteiro que aponta para uma área de memória válida (usualmente uma variável no programa)</p></li>
+<li><p>Se esquecermos de atribuir um valor ao ponteiro e tentarmos usá-lo, <strong>coisas ruins podem acontecer!</strong></p>
+<pre><code>int main()
+{
+    int a = 200;
+    int* b;
+    printf("Conteúdo apontado por b: %d\n", *b); // oops!
+}</code></pre></li>
+<li><p>Este código provavelmente irá gerar uma <strong>falha de segmentação</strong> no Linux</p></li>
+</ul>
+<hr>
+<h2 id="o-ponteiro-null"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#o-ponteiro-null">O ponteiro NULL</a></h2>
+<ul>
+<li><p>É considerada uma prática saudável armazenar o valor <em>NULL</em> em ponteiros não inicializados</p>
+<ul>
+<li><em>NULL</em> é simplesmente uma constante definida como ZERO</li>
+</ul></li>
+<li><p>No código, pode ser usado com segurança para testar se um ponteiro está inicializado ou não:</p>
+<pre><code>int main()
+{
+    int a = 200;
+    int* b = NULL;
+    ...
+    if(b != NULL)
+        printf("Conteúdo apontado por b: %d\n", *b); // b é válido
+    else
+        printf("Ponteiro inválido!\n");
+}</code></pre></li>
+</ul>
+<hr>
+<h1 id="ponteiros-e-arrays"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-e-arrays">Ponteiros e <em>arrays</em></a></h1>
+<hr>
+<h2 id="ponteiros-e-arrays-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#ponteiros-e-arrays-1">Ponteiros e <em>arrays</em></a></h2>
+<ul>
+<li><p>Em C, um <em>array</em> é armazenado como um <strong>ponteiro para o seu primeiro elemento</strong></p></li>
+<li><p>Os demais elementos são armazenados contiguamente a partir do end. inicial</p></li>
+<li><p>Por exemplo:</p>
+<pre><code>char c[10];</code></pre></li>
+<li><p><em>c</em> é um ponteiro para uma área de memória capaz de armazenar 10 <em>char</em></p></li>
+<li><p>Pontanto, o tamanho da área de memória é 10 * sizeof(char) = 10 bytes</p></li>
+</ul>
+<hr>
+<h2 id="arrays-são-sempre-passados-por-referência"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#arrays-s%C3%A3o-sempre-passados-por-refer%C3%AAncia"><em>Arrays</em> são sempre passados por referência</a></h2>
+<ul>
+<li><p>Uma consequência interessante dessa implementação é que os <em>arrays</em> são <strong>sempre</strong> passados por referência:</p>
+<pre><code>void incArray(int v[]) {
+  int c;
+  for(c=0; c&lt;10; c++)
+    v[c]++;
+}
+
+int main() {
+  int data[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+  incArray(data);
+}</code></pre></li>
+<li><p>Ou podemos escrever a função desta forma:</p>
+<pre><code>void incArray(int* v) {
+...</code></pre></li>
+</ul>
+<hr>
+<h2 id="aritmética-de-ponteiros"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros">Aritmética de ponteiros</a></h2>
+<ul>
+<li><p>Considerando o seguinte <em>array</em> de <em>char</em>:</p>
+<pre><code>char c[10] = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j' };</code></pre></li>
+<li><p>Podemos declarar um ponteiro <em>p</em> para ele:</p>
+<pre><code>char* p = c; // não precisa &amp;, c já é um ponteiro</code></pre></li>
+<li><p>E agora <em>p</em> é o <strong>mesmo</strong> que <em>c</em>:</p>
+<pre><code>printf("%c\n", *p);    // exibe o primeiro elemento do array
+printf("%c\n", p[0]);  // idem
+
+printf("%p\n", p);     // exibe o endereço do primeiro elemento
+printf("%p\n", c);     // idem
+printf("%p\n", &amp;c[0]); // idem </code></pre></li>
+</ul>
+<hr>
+<h2 id="aritmética-de-ponteiros-2"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros-2">Aritmética de ponteiros (2)</a></h2>
+<ul>
+<li>A <em>aritmética de ponteiros</em> nos permite acessar outros elementos através do operador de adição:</li>
+</ul>
+<figure>
+<img src="./Ponteiros em C_files/C_language_pointer_arithmetic_chars.webp" alt="{@class=center}chararray"><figcaption>{@class=center}chararray</figcaption>
+</figure>
+<pre><code>    char* p = c;
+
+    printf("%c\n", *p);     // exibe 'a'
+    printf("%c\n", *(p+1)); // exibe 'b'
+    printf("%c\n", *(p+2)); // exibe 'c'
+    printf("%c\n", *(p+3)); // exibe 'd'
+    ...</code></pre>
+<hr>
+<h2 id="aritmética-de-ponteiros-é-inteligente"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros-%C3%A9-inteligente">Aritmética de ponteiros é inteligente!</a></h2>
+<ul>
+<li><p>Se o <em>array</em> armazena <em>ints</em>, o pŕóximo elemento estará a <strong>4 bytes</strong> de distância</p></li>
+<li><p>O tamanho da área de memória será 10 * sizeof(int) = 40 bytes</p></li>
+</ul>
+<figure>
+<img src="./Ponteiros em C_files/C_language_pointer_arithmetic_ints.webp" alt="{@class=center}intarray"><figcaption>{@class=center}intarray</figcaption>
+</figure>
+<pre><code>    int m[] = { 3, 2, 1, 4, 5, 6, 9, 8, 7, 10 };
+
+    printf("%p\n", m);     // end. do primeiro elem., e.g. 0x7fff5fbfebf8
+    printf("%p\n", &amp;m[0]); // idem
+    printf("%p\n", m+1);   // end. do segundo elem., e.g. 0x7fff5fbfebfc
+    printf("%p\n", &amp;m[1]); // idem</code></pre>
+<hr>
+<h2 id="experimento-aritmética-de-ponteiros"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#experimento-aritm%C3%A9tica-de-ponteiros">Experimento: aritmética de ponteiros</a></h2>
+<ul>
+<li>Compare os seguintes programas:</li>
+</ul>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+    int vet[] = { 4, 9, 12 };
+    int i, *ptr;
+    ptr = vet;
+    for(i =0; i&lt;3; i++)
+        printf("%d ", *ptr++);
+    return 1;
+}</code></pre>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+    int vet[] = { 4, 9, 12 };
+    int i, *ptr;
+    ptr = vet;
+    for(i =0; i&lt;3; i++)
+        printf("%d ", (*ptr)++);
+    return 1;
+}</code></pre>
+<ul>
+<li>Você pode explicar o que é exibido na tela em cada caso?</li>
+</ul>
+<hr>
+<h2 id="aritmética-de-ponteiros-na-prática"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#aritm%C3%A9tica-de-ponteiros-na-pr%C3%A1tica">Aritmética de ponteiros na prática</a></h2>
+<ul>
+<li><p>Essa é uma técnica amplamente usada: é rápida e eficiente, <strong>se você souber o que está fazendo!</strong></p></li>
+<li><p>Um exemplo prático: a função <em>strlen</em> (calcula o comprimento de uma <em>string null-terminated</em>)</p>
+<ul>
+<li><p>Esta é a implementação do <em>FreeBSD 6.2</em> (não necessariamente a melhor ou mais eficiente)</p>
+<pre><code>size_t strlen(const char * str)
+{
+    const char *s;
+    for (s = str; *s; ++s) {}
+    return s - str;
+}</code></pre></li>
+</ul></li>
+<li><p>Você é capaz de explicar como ela funciona?</p></li>
+</ul>
+<hr>
+<h2 id="arrays-de-ponteiros"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#arrays-de-ponteiros"><em>Arrays</em> de ponteiros</a></h2>
+<ul>
+<li><p>Um <strong>array de ponteiros</strong> pode ser usado, por exemplo, para armazenar uma lista de <em>strings</em>:</p>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+    char* nomes[] = { "Tyrion", "Stannis", "Tywin", "Eddard" };
+    int i;
+    for(i=0; i&lt;4; i++)
+        printf("%s\n", nomes[i]);
+}</code></pre></li>
+<li><p>Observe que a linguagem irá automaticamente criar todos os ponteiros a partir das <em>strings</em> de inicialização</p></li>
+</ul>
+<hr>
+<h2 id="outro-uso-argumentos-para-o-programa"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#outro-uso-argumentos-para-o-programa">Outro uso: argumentos para o programa</a></h2>
+<ul>
+<li><p>Para obter os parâmetros passados através da linha de comando, podemos escrever uma função <em>main</em> modificada, com dois parâmetros:</p>
+<ul>
+<li><em>argc</em> é a quantidade de parâmetros digitados na linha de comando</li>
+<li><p><em>argv</em> é um <em>array</em> de ponteiros para <em>strings</em></p>
+<pre><code>// argumentos.c
+int main(int argc, char* argv[])
+{
+    printf("No. de argumentos: %d\n", argc);
+    int i;
+    for(i=0; i&lt;argc; i++)
+        printf("Argumento %d: %s\n", i, argv[i]);
+}
+
+// Teste no shell:
+./argumentos Esta é uma lista de parâmetros 1 2 3</code></pre></li>
+</ul></li>
+</ul>
+<hr>
+<h1 id="exercícios"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#exerc%C3%ADcios">Exercícios</a></h1>
+<hr>
+<h2 id="exercícios-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#exerc%C3%ADcios-1">Exercícios</a></h2>
+<ol type="1">
+<li><p>Considere o seguinte código, que exibe o conteúdo do <em>array</em> junto ao endereço de memória de cada elemento:</p>
+<pre><code>int main()
+{
+    int nums[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    int* ptr = nums;
+    int i, bytes;
+    for(i=0, bytes=0; i&lt;10; i++, bytes+=4)
+        printf("%d: %p + %d bytes = %p ==&gt; %d\n",
+            i, ptr, bytes, (ptr+i), *(ptr+i));
+    return 0;
+}</code></pre>
+<ul>
+<li>Você consegue alterar o código, fazendo que ele exiba o conteúdo de cada <strong>byte</strong> do <em>array</em>?</li>
+</ul></li>
+</ol>
+<hr>
+<h2 id="exercícios-2"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U02_pointers/pointers/handout.html#exerc%C3%ADcios-2">Exercícios (2)</a></h2>
+<ol start="2" type="1">
+<li><p>Você consegue exibir o conteúdo das seguintes varíaveis, usando apenas ponteiros para <em>char</em> (bypes)?</p>
+<pre><code>int main() {
+    char* text = "Prog. Sofware Basico";
+    int v[] = { 0, 1, 2, 3, 4 };
+    int matriz[4][4] = {
+        0, 1, 2, 3,
+        4, 5, 6, 7,
+        8, 9, 10, 11,
+        12, 13, 14, 15
+    };
+}</code></pre></li>
+</ol>
+<script defer="" src="./Ponteiros em C_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8e43f65b1a4be7a5&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2024.10.5&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+
+</body></html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!-- saved from url=(0076)https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Prog. para Software Básico">
+  <title>Introdução à Linguagem C</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="./Introdução à Linguagem C_files/htmlpage.css">
+    <script type="text/x-mathjax-config;executed=true">
+      MathJax.Hub.Config({
+          "HTML-CSS": { scale: 85, },
+      tex2jax: {
+  	inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    	displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+        }
+      });
+    </script>
+    <script type="text/javascript" src="./Introdução à Linguagem C_files/MathJax.js.download"></script>
+    
+<style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Hover_Arrow {position: absolute; width: 15px; height: 11px; cursor: pointer}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuTitle {background-color: #CCCCCC; margin: -1px -1px 1px -1px; text-align: center; font-style: italic; font-size: 80%; color: #444444; padding: 2px 0; overflow: hidden}
+.MathJax_MenuArrow {position: absolute; right: .5em; color: #666666}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_Menu_Close {position: absolute; width: 31px; height: 31px; top: -15px; left: -15px}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+<header>
+<h1 class="title">Introdução à Linguagem C</h1>
+<h2 class="author">Prog. para Software Básico</h2>
+<h3 class="date">Prof. Marcelo Cohen - 03/2013</h3>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#introdu%C3%A7%C3%A3o-%C3%A0-linguagem-c">Introdução à Linguagem C</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estrutura-de-um-programa">Estrutura de um programa</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estrutura-de-um-programa-1">Estrutura de um programa</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#biblioteca-c-de-fun%C3%A7%C3%B5es-padr%C3%A3o">Biblioteca C de funções padrão</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#tipos-de-dados-em-c">Tipos de dados em C</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#tipos-de-dados-em-c-1">Tipos de dados em C</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda">Entrada e saída</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#padr%C3%A3o-c">Padrão C</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda-1">Entrada e saída</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#padr%C3%A3o-c-1">Padrão C</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda-2">Entrada e saída</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#exemplo-completo-em-c">Exemplo completo em C</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda-3">Entrada e saída</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#modificadores-de-formato-para-printfscanf">Modificadores de formato para printf/scanf</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estruturas-de-controle">Estruturas de controle</a></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estruturas-de-dados">Estruturas de dados</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#vetores-e-matrizes">Vetores e matrizes</a></li>
+</ul></li>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estruturas-de-dados-1">Estruturas de dados</a><ul>
+<li><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#vetores-e-matrizes-1">Vetores e matrizes</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="introdução-à-linguagem-c"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#introdu%C3%A7%C3%A3o-%C3%A0-linguagem-c">Introdução à Linguagem C</a></h1>
+<p><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html">Versão para impressão</a></p>
+<hr>
+<h2 id="estrutura-de-um-programa"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estrutura-de-um-programa">Estrutura de um programa</a></h2>
+<ul>
+<li><p>Um programa em C/C++ é composto por um <strong>conjunto de funções</strong></p></li>
+<li><p>Pelo menos uma função deve ser definida: <em>main</em> (indica início do programa)</p>
+<pre><code>#include &lt;...&gt; // inclui cabeçalho de biblioteca
+#include &lt;...&gt; // inclui outro cabeçalho de biblioteca
+
+int main()
+{
+  ... instruções ...
+}</code></pre></li>
+</ul>
+<hr>
+<h2 id="estrutura-de-um-programa-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estrutura-de-um-programa-1">Estrutura de um programa</a></h2>
+<h3 id="biblioteca-c-de-funções-padrão"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#biblioteca-c-de-fun%C3%A7%C3%B5es-padr%C3%A3o">Biblioteca C de funções padrão</a></h3>
+<ul>
+<li><p>A linguagem C oferece uma biblioteca de funções padrão</p></li>
+<li><p>Deve ser incluído o <em>header</em> (arquivo contendo definições das funções) correspondente</p>
+<pre><code>#include &lt;stdio.h&gt;  // funções de entrada/saída
+#include &lt;math.h&gt;    // funções matemáticas
+#include &lt;stdlib.h&gt; // funções de uso geral
+#include &lt;string.h&gt; // funções para uso de strings
+...</code></pre></li>
+<li><p>Lista completa: <a href="http://en.cppreference.com/w/c/header">clique aqui</a></p></li>
+</ul>
+<hr>
+<h2 id="tipos-de-dados-em-c"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#tipos-de-dados-em-c">Tipos de dados em C</a></h2>
+<ul>
+<li><p><em>char</em>, <em>int</em>, <em>float</em>, <em>double</em>: tipos numéricos básicos</p>
+<ul>
+<li><p><em>char</em>, caractere representado em 1 byte com sinal (-128 a 127) ou sem sinal (0 a 255)</p></li>
+<li><p>Podem ser combinados com modificadores:</p>
+<ul>
+<li><em>short</em>: forma curta</li>
+<li><em>long</em>: forma longa (às vezes igual ao sem modificador)</li>
+<li><em>unsigned</em>: representação sem sinal (somente positivos)</li>
+<li><em>signed</em>: representação com sinal (default)</li>
+</ul></li>
+</ul></li>
+<li><p>Na prática:</p>
+<ul>
+<li><em>short int</em> &lt;= <em>int</em> &lt;= <em>long int</em></li>
+<li><em>float</em> &lt;= <em>double</em> &lt;= <em>long double</em></li>
+</ul></li>
+</ul>
+<hr>
+<h2 id="tipos-de-dados-em-c-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#tipos-de-dados-em-c-1">Tipos de dados em C</a></h2>
+<table>
+    <tbody><tr>
+        <td>
+Tipo
+</td><td>
+Bytes
+</td><td>
+Bits
+</td><td>
+Intervalo
+</td>
+    </tr>
+    <tr>
+        <td>
+short int
+</td><td>
+2
+</td><td>
+16
+</td><td>
+-32.768...32.767 (32 Kb)
+</td>
+    </tr>
+    <tr>
+        <td>
+unsigned short int
+</td><td>
+2
+</td><td>
+16
+</td><td>
+0...65.535 (64 Kb)
+</td>
+    </tr>
+    <tr>
+        <td>
+unsigned int
+</td><td>
+4
+</td><td>
+32
+</td><td>
+0...4.294.967.295 (4Gb)
+</td>
+    </tr>
+    <tr>
+        <td>
+int
+</td><td>
+4
+</td><td>
+32
+</td><td>
+-2.147.483.648...2.147.483.647 (2 Gb)
+</td>
+    </tr>
+    <tr>
+        <td>
+long int
+</td><td>
+4
+</td><td>
+32
+</td><td>
+""
+</td>
+    </tr>
+    <tr>
+        <td>
+signed char
+</td><td>
+1
+</td><td>
+8
+</td><td>
+-128...127
+</td>
+    </tr>
+    <tr>
+        <td>
+unsigned char
+</td><td>
+1
+</td><td>
+8
+</td><td>
+0...255
+</td>
+    </tr>
+    <tr>
+        <td>
+float
+</td><td>
+4
+</td><td>
+32
+</td><td>
+7 casas de precisão
+</td>
+    </tr>
+    <tr>
+        <td>
+double
+</td><td>
+8
+</td><td>
+64
+</td><td>
+15 casas de precisão
+</td>
+    </tr>
+</tbody></table>
+
+<ul>
+<li>O operador <em>sizeof</em> retorna, em tempo de compilação, o tamanho em bytes</li>
+<li>Tabela completa: <a href="http://www.cplusplus.com/reference/climits/">clique aqui</a></li>
+</ul>
+<hr>
+<h2 id="entrada-e-saída"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda">Entrada e saída</a></h2>
+<h3 id="padrão-c"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#padr%C3%A3o-c">Padrão C</a></h3>
+<ul>
+<li><p>A entrada e saída em C se dá através de funções específicas para isso, descritas no header <em>stdio.h</em></p></li>
+<li><p>Exemplo de saída com a função <em>printf</em>:</p>
+<pre><code>int i = 5;
+printf("O valor de i é: %d\n", i);</code></pre></li>
+<li><p>Método equivalente em Java:</p>
+<pre><code>int i = 5;
+System.out.printf("O valor de i é: %d\n", i);
+// ou: System.out.println("O valor de i é: " + i);</code></pre></li>
+</ul>
+<hr>
+<h2 id="entrada-e-saída-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda-1">Entrada e saída</a></h2>
+<h3 id="padrão-c-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#padr%C3%A3o-c-1">Padrão C</a></h3>
+<ul>
+<li><p>Exemplo de entrada com a função <em>scanf</em>:</p>
+<pre><code>int i;
+scanf("%d", &amp;i);</code></pre>
+<ul>
+<li>Observe a necessidade de usar o operador <strong>&amp;</strong> e também de indicar o tipo da variável (<em>%d</em> - inteira)</li>
+</ul></li>
+<li><p>Método equivalente em Java:</p>
+<pre><code>int i;
+Scanner sc = new Scanner();
+i = sc.nextInt();</code></pre></li>
+</ul>
+<hr>
+<h2 id="entrada-e-saída-2"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda-2">Entrada e saída</a></h2>
+<h3 id="exemplo-completo-em-c"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#exemplo-completo-em-c">Exemplo completo em C</a></h3>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main()
+{
+  int valor1, valor2;
+  printf("Digite os dois valores: ");
+  scanf("%d %d", &amp;valor1, &amp;valor2);
+  printf("Você digitou: %d e %d\n", valor1, valor);
+} </code></pre>
+<hr>
+<h2 id="entrada-e-saída-3"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#entrada-e-sa%C3%ADda-3">Entrada e saída</a></h2>
+<h3 id="modificadores-de-formato-para-printfscanf"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#modificadores-de-formato-para-printfscanf">Modificadores de formato para printf/scanf</a></h3>
+<table>
+    <tbody><tr><td>
+Formato
+</td><td>
+Saída
+</td><td>
+Exemplo
+</td></tr>
+    <tr><td>
+d
+</td><td>
+Inteiro com sinal
+</td><td>
+127
+</td></tr>
+    <tr><td>
+u
+</td><td>
+Inteiro sem sinal
+</td><td>
+258
+</td></tr>
+    <tr><td>
+x
+</td><td>
+Hexadecimal sem sinal
+</td><td>
+8af
+</td></tr>
+    <tr><td>
+X
+</td><td>
+Hexadecimal sem sinal (maiúsculas)
+</td><td>
+8AF
+</td></tr>
+    <tr><td>
+f
+</td><td>
+Real (float ou double)
+</td><td>
+5.653
+</td></tr>
+    <tr><td>
+c
+</td><td>
+Caractere (apenas um)
+</td><td>
+a
+</td></tr>
+    <tr><td>
+s
+</td><td>
+Array de char (string)
+</td><td>
+Teste
+</td></tr>
+</tbody></table>
+
+<ul>
+<li>Tabela completa: <a href="http://en.cppreference.com/w/c/io/fprintf">clique aqui</a></li>
+</ul>
+<hr>
+<h2 id="estruturas-de-controle"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estruturas-de-controle">Estruturas de controle</a></h2>
+<ul>
+<li><p>Seleção:</p>
+<ul>
+<li><p>Simples: <em>if</em></p></li>
+<li><p>Múltipla: <em>switch</em></p></li>
+</ul></li>
+<li><p>Repetição:</p>
+<ul>
+<li><p>Por condição: <em>while</em>, <em>do...while</em></p></li>
+<li><p>Por contagem: <em>for</em></p></li>
+</ul></li>
+</ul>
+<hr>
+<h2 id="estruturas-de-dados"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estruturas-de-dados">Estruturas de dados</a></h2>
+<h3 id="vetores-e-matrizes"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#vetores-e-matrizes">Vetores e matrizes</a></h3>
+<ul>
+<li><p>Estruturas de dados <strong>homogêneas</strong></p>
+<ul>
+<li>Armazenam vários valores, mas todos de um mesmo tipo (ex: todos <em>int</em>, <em>double</em>, <em>float</em> ou <em>char</em>)</li>
+</ul></li>
+<li><p>Declaração de <em>arrays</em> unidimensionais ("vetores") em C:</p>
+<pre><code>int v[10];  // vetor de 10 inteiros (0-9)
+char s[30]; // vetor de 30 caracteres (0-29)</code></pre></li>
+<li><p>Declaração de <em>arrays</em> com mais de uma dimensão ("matrizes"):</p>
+<pre><code>int mat[4][4];    // matriz 4x4, 16 inteiros
+float c[6][4][2]; // matriz 6x4x2, 48 reais</code></pre></li>
+</ul>
+<hr>
+<h2 id="estruturas-de-dados-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#estruturas-de-dados-1">Estruturas de dados</a></h2>
+<h3 id="vetores-e-matrizes-1"><a href="https://www.inf.pucrs.br/flash/progswb2/present/U01_progC/intro/handout.html#vetores-e-matrizes-1">Vetores e matrizes</a></h3>
+<ul>
+<li><p>Acesso é feito através do operador [ ]</p>
+<pre><code>int v[10], i;
+for(i=0; i&lt;10; i++)
+  v[i] = i;
+...</code></pre></li>
+<li><p>Idem para matrizes:</p>
+<pre><code>int mat[4][4], i, j;
+for(i=0; i&lt;4; i++)
+  for(j=0; j&lt;4; j++)
+    v[i][j] = i;
+...</code></pre></li>
+</ul>
+<script defer="" src="./Introdução à Linguagem C_files/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;8e434fb4df683559&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2024.10.5&quot;,&quot;token&quot;:&quot;e574ebd03d434993bfcf28088123cf56&quot;}" crossorigin="anonymous"></script>
+
+
+</body></html>
